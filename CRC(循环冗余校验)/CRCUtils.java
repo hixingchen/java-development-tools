@@ -32,10 +32,14 @@ public class CRCUtils {
         ans = hexToBinary(ans);
         temp = new StringBuilder();
         for (int i = 0; i < ans.length(); i++) {
-            temp.append(ans.charAt(i/8*8+(7-i%8)));
+            temp.append(ans.charAt(i/16*16+(15-i%16)));
         }
         String s = new BigInteger(temp.toString(), 2).toString(16);
-        return s.substring(2)+s.substring(0,2);
+        int tempLen = s.length();
+        for (int i = 0; i < 4 - tempLen; i++) {
+            s = "0"+s;
+        }
+        return s;
     }
     private static String hexToBinary(String hexString) {
         StringBuilder binaryString = new StringBuilder();
